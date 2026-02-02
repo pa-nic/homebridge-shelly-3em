@@ -1,5 +1,5 @@
 {
-  "name": "homebridge-shelly-3em-plugin",
+  "name": "homebridge-shelly-3em",
   "displayName": "Shelly (Pro) 3EM Plugin",
   "type": "module",
   "version": "0.1.0",

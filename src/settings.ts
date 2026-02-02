@@ -6,4 +6,4 @@ export const PLATFORM_NAME = 'Shelly3EM-HomebridgePlugin';
 /**
  * This must match the name of your plugin as defined the package.json `name` property
  */
-export const PLUGIN_NAME = 'homebridge-shelly-3em-plugin';
+export const PLUGIN_NAME = 'homebridge-shelly-3em';
