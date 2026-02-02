@@ -1,6 +1,6 @@
 <p align="center">
 
-<img src="https://github.com/pa-nic/homebridge-shelly-3em-plugin/blob/main/images/logo-shelly-hb.png" width="320">
+<img src="https://github.com/pa-nic/homebridge-shelly-3em/blob/main/images/logo-shelly-hb.png" width="320">
 
 </p>
 
