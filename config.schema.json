@@ -1,0 +1,146 @@
+{
+  "pluginAlias": "Shelly3EM-HomebridgePlugin",
+  "pluginType": "platform",
+  "singular": true,
+  "strictValidation": false,
+  "schema": {
+    "type": "object",
+    "required": ["devices"],
+    "additionalProperties": false,
+    "properties": {
+      "devices": {
+        "title": "Devices",
+        "type": "array",
+        "items": {
+          "type": "object",
+          "required": ["name", "ip", "auth", "update_interval", "timeout", "monophase"],
+          "properties": {
+            "name": {
+              "title": "Device Name",
+              "type": "string"
+            },
+            "ip": {
+              "title": "Device IP Address",
+              "type": "string"
+            },
+             "monophase": {
+              "title": "Monophase Mode (default: Triphase)",
+              "description": "Enable this option if your Shelly 3EM is configured in mode Monophase.",
+              "type": "boolean",
+              "default": false
+            },
+            "auth": {
+              "title": "Authentication",
+              "type": "boolean",
+              "default": false
+            },
+            "pass": {
+              "title": "Password",
+              "type": "string",
+              "required": false,
+              "condition": {
+                "functionBody": "return model.devices[arrayIndices].auth === true;"
+              }
+            },
+            "update_interval": {
+              "title": "Polling Interval (ms)",
+              "type": "integer",
+              "default": 10000,
+              "minimum": 1000
+            },
+            "timeout": {
+              "title": "Request Timeout (ms)",
+              "description": "Maximum time to wait for a device response. Must be lower than the polling interval.",
+              "type": "integer",
+              "default": 5000,
+              "minimum": 1000
+            },
+            "enable_triphase_return": {
+              "title": "Enable Return Power/Energy monitoring",
+              "description": "Adds additional accessory to display return power/energy in triphase mode.",
+              "type": "boolean",
+              "default": false,
+              "condition": {
+                "functionBody": "return model.devices[arrayIndices].monophase === false;"
+              }
+            },
+            "custom_script": {
+              "title": "Enable custom script for energy values",
+              "description": "Use custom Shelly script for consumed and returned energy values in triphase mode.",
+              "type": "boolean",
+              "default": false,
+              "condition": {
+                "functionBody": "return model.devices[arrayIndices].monophase === false;"
+              }
+            },
+             "custom_script_id": {
+              "title": "ID",
+              "description": "ID of your Shelly script.",
+              "type": "number",
+              "default": 1,
+              "condition": {
+                "functionBody": "return model.devices[arrayIndices].custom_script === true;"
+              }
+            },
+            "custom_script_endpoint": {
+              "title": "Endpoint",
+              "description": "Endpoint of your Shelly script.",
+              "type": "string",
+              "default": "",
+              "condition": {
+                "functionBody": "return model.devices[arrayIndices].custom_script === true;"
+              }
+            },
+            "custom_script_energy_key": {
+              "title": "Energy Key",
+              "description": "JSON key for energy values in the custom script. Values must be in kWh!",
+              "type": "string",
+              "default": "",
+              "condition": {
+                "functionBody": "return model.devices[arrayIndices].custom_script === true;"
+              }
+            },
+            "custom_script_ret_energy_key": {
+              "title": "Return Energy Key",
+              "description": "JSON key for return energy values in the custom script. Values must be in kWh!",
+              "type": "string",
+              "default": "",
+              "condition": {
+                "functionBody": "return model.devices[arrayIndices].custom_script === true;"
+              }
+            },
+            "enable_phaseA_return": {
+              "title": "Enable Return Power/Energy on phaseA",
+              "description": "Displays return power/energy on phaseA (instead of consumed values).",
+              "type": "boolean",
+              "default": false,
+              "condition": {
+                "functionBody": "return model.devices[arrayIndices].monophase === true;"
+              }
+            },
+            "enable_phaseB_return": {
+              "title": "Enable Return Power/Energy on phaseB",
+              "description": "Displays return power/energy on phaseB (instead of consumed values).",
+              "type": "boolean",
+              "default": false,
+              "condition": {
+                "functionBody": "return model.devices[arrayIndices].monophase === true;"
+              }
+            },
+            "enable_phaseC_return": {
+              "title": "Enable Return Power/Energy on phaseC",
+              "description": "Displays return power/energy on phaseC (instead of consumed values).",
+              "type": "boolean",
+              "default": false,
+              "condition": {
+                "functionBody": "return model.devices[arrayIndices].monophase === true;"
+              }
+            }
+          },
+          "additionalProperties": false
+        },
+        "minItems": 1
+      }
+    }
+  }
+}
