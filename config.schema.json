@@ -1,7 +1,7 @@
 {
   "pluginAlias": "Shelly3EM-HomebridgePlugin",
   "pluginType": "platform",
-  "singular": true,
+  "singular": false,
   "strictValidation": false,
   "schema": {
     "type": "object",
