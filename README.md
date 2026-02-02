@@ -8,7 +8,7 @@
 
 This is a [Homebridge](https://homebridge.io) platform plugin for the [Shelly](https://www.shelly.com) three-phase energy meters. 
 
-Supporting all Gen2+ **3EM** energy meters like:
+Supporting all Shelly Gen 2+ **3EM** energy meters like:
 - Shelly 3EM
 - Shelly Pro 3EM
 - etc.
@@ -40,15 +40,15 @@ The following configurations are available through the Hombridge UI-X web interf
 | Device IP Address | | string | IP of your Shelly energy meter |
 | Monophase Mode | | boolean | Enable Monophase Mode (default is Triphase). This needs to match your Shelly energy meter configuration. Creates three accessories named `Device Name-phaseA`, `Device Name-phaseB`, `Device Name-phaseC` |
 | Authentication | | boolean | Enable if you've set a password for your Shelly energy meter. |
-| Password | Authentication | string | Provide your Shelly energy meter password. |
+| Password | | string | Provide your Shelly energy meter password. |
 | Polling Interval | | number | Set the interval for polling new data from you Shelly energy meter in milliseconds. |
 | Request Timeout | | number | Maximum time to wait for a device response in milliseconds. Must be lower than the polling interval. |
 | Enable Return Power/Energy monitoring | Triphase | boolean | Adds additional accessory (`Device Name-return`) to display return power/energy in triphase mode.|
 | Enable custom script for energy values | Triphase | boolean | Use custom Shelly script for consumed and returned energy values in triphase mode. For correct balancing (saldieren). **Values MUST be provided in kWh.** |
-| ID | Custom Script | number | ID of your Shelly script. View the ID in the script overview of your Shelly energy meter web interface (e.g. script:**1** -> ID = **1**) or check the URL when editing the script in the web interface (e.g. http://*YOUR_IP*/#/script/**1**) |
-| Endpoint | Custom Script | string | The endpoint your Shelly script exposes (http://*YOUR_IP*/script/1/**endpoint**). |
-| Energy Key | Custom Script | string | JSON key for energy values in the custom script. **Values MUST be provided in kWh.** (e.g. {"**energyConsumed**":2508.191, "energyReturned":197.029}) |
-| Return Energy Key | Custom Script | string | JSON key for return energy values in the custom script. **Values MUST be provided in kWh.** (e.g. {"energyConsumed":2508.191, "**energyReturned**":197.029}) |
+| ID | Triphase | number | ID of your Shelly script. View the ID in the script overview of your Shelly energy meter web interface (e.g. script:**1** -> ID = **1**) or check the URL when editing the script in the web interface (e.g. http://*YOUR_IP*/#/script/**1**) |
+| Endpoint | Triphase | string | The endpoint your Shelly script exposes (http://*YOUR_IP*/script/1/**endpoint**). |
+| Energy Key | Triphase | string | JSON key for energy values in the custom script. **Values MUST be provided in kWh.** (e.g. {"**energyConsumed**":2508.191, "energyReturned":197.029}) |
+| Return Energy Key | Triphase | string | JSON key for return energy values in the custom script. **Values MUST be provided in kWh.** (e.g. {"energyConsumed":2508.191, "**energyReturned**":197.029}) |
 | Enable Return Power/Energy on phaseA | Monophase | boolean | Displays return power/energy on phaseA (instead of consumed values). |
 | Enable Return Power/Energy on phaseB | Monophase | boolean | Displays return power/energy on phaseB (instead of consumed values). |
 | Enable Return Power/Energy on phaseC | Monophase | boolean | Displays return power/energy on phaseC (instead of consumed values). |
