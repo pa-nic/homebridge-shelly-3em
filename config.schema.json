@@ -5,14 +5,13 @@
   "strictValidation": false,
   "schema": {
     "type": "object",
-    "required": ["devices"],
+    "required": ["name", "devices"],
     "additionalProperties": false,
     "properties": {
       "name": {
         "title": "Name",
         "type": "string",
-        "default": "Shelly 3EM Platform Plugin",
-        "required": true
+        "default": "Shelly 3EM Platform Plugin"
       },
       "devices": {
         "title": "Devices",
