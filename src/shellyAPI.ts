@@ -11,7 +11,7 @@ async function fetchShellyDevice(url: string, deviceConfig: DeviceConfig, log?: 
   const timeout = deviceConfig.timeout ?? 5000;
   const controller = new AbortController();
   const timeoutId = setTimeout(() => controller.abort(), timeout);
-  let response: FetchResponse;
+  let response: FetchResponse | undefined;
   try {
     if (deviceConfig.auth) {
       const client = new DigestFetch('admin', deviceConfig.pass, { algorithm: 'SHA-256' });
@@ -22,29 +22,46 @@ async function fetchShellyDevice(url: string, deviceConfig: DeviceConfig, log?: 
     } else {
       response = await fetch(url, { signal: controller.signal });
     }
+  } catch (err: unknown) {
+    if (log) {
+      const message = err instanceof Error ? err.message : String(err);
+      log.debug(`[${deviceConfig.name}] Network error for ${url}: ${message}`);
+    }
+    // Optionally, implement retry logic here
+    // For now, rethrow to be handled by caller
+    throw err;
   } finally {
     clearTimeout(timeoutId);
   }
-  return response;
+  return response!;
 }
 
 /**
  * Fetches and parses JSON from a Shelly endpoint with error handling.
  */
 async function fetchAndParseJSON<T>(url: string, deviceConfig: DeviceConfig, log?: Logger): Promise<T> {
-  const response = await fetchShellyDevice(url, deviceConfig, log);
-  if (!response.ok) {
-    const headersObj: Record<string, string> = {};
-    response.headers.forEach((value: string, key: string) => {
-      headersObj[key] = value;
-    });
-    if (log) {
-      log.debug(`[${deviceConfig.name}] Response headers:`, JSON.stringify(headersObj));
+  try {
+    const response = await fetchShellyDevice(url, deviceConfig, log);
+    if (!response.ok) {
+      const headersObj: Record<string, string> = {};
+      response.headers.forEach((value: string, key: string) => {
+        headersObj[key] = value;
+      });
+      if (log) {
+        log.debug(`[${deviceConfig.name}] Response headers:`, JSON.stringify(headersObj));
+      }
+      const text = await response.text();
+      throw new Error(`[${deviceConfig.name}] HTTP ${response.status} for ${url}: ${text}`);
     }
-    const text = await response.text();
-    throw new Error(`[${deviceConfig.name}] HTTP ${response.status} for ${url}: ${text}`);
+    return response.json() as Promise<T>;
+  } catch (err: unknown) {
+    if (log) {
+      const message = err instanceof Error ? err.message : String(err);
+      log.debug(`[${deviceConfig.name}] Failed to fetch or parse JSON from ${url}: ${message}`);
+    }
+    // Optionally, return fallback value or rethrow
+    throw err;
   }
-  return response.json() as Promise<T>;
 }
 
 /**
