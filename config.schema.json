@@ -1,5 +1,4 @@
 {
-  "name": "Shelly 3EM Homebridge Plugin",
   "pluginAlias": "Shelly3EM-HomebridgePlugin",
   "pluginType": "platform",
   "singular": false,
@@ -9,6 +8,12 @@
     "required": ["devices"],
     "additionalProperties": false,
     "properties": {
+      "name": {
+        "title": "Name",
+        "type": "string",
+        "default": "Shelly 3EM Platform Plugin",
+        "required": true
+      },
       "devices": {
         "title": "Devices",
         "type": "array",

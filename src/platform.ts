@@ -32,7 +32,7 @@ export class ShellyEnergyMeterPlatform implements DynamicPlatformPlugin {
     this.Characteristic = api.hap.Characteristic;
     this.FakeGatoHistoryService = fakegato(this.api);
 
-    this.log.debug('Finished initializing platform: Shelly 3EM plugin');
+    this.log.debug('Finished initializing platform: ', this.config.name);
 
     // When this event is fired it means Homebridge has restored all cached accessories from disk.
     // Dynamic Platform plugins should only register new accessories after this event was fired,
