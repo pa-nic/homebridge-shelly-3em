@@ -1,4 +1,5 @@
 {
+  "name": "Shelly 3EM Homebridge Plugin",
   "pluginAlias": "Shelly3EM-HomebridgePlugin",
   "pluginType": "platform",
   "singular": false,
@@ -37,7 +38,6 @@
             "pass": {
               "title": "Password",
               "type": "string",
-              "required": false,
               "condition": {
                 "functionBody": "return model.devices[arrayIndices].auth === true;"
               }
