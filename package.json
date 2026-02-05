@@ -2,7 +2,7 @@
   "name": "homebridge-shelly-3em",
   "displayName": "Shelly (Pro) 3EM Plugin",
   "type": "module",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "A short description about what your plugin does.",
   "author": {
     "name": "Patrick Probst",
