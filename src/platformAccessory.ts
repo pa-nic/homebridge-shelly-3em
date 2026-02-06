@@ -136,7 +136,7 @@ export class ShellyEnergyMeterPlatformAccessory {
     info
       .setCharacteristic(this.platform.api.hap.Characteristic.Manufacturer, 'Shelly')
       .setCharacteristic(this.platform.api.hap.Characteristic.Model, '3EM')
-      .setCharacteristic(this.platform.api.hap.Characteristic.SerialNumber, this.macAddress);
+      .setCharacteristic(this.platform.api.hap.Characteristic.SerialNumber, `${this.macAddress}${this.suffix || ''}`);
   }
 
   private setupService() {
