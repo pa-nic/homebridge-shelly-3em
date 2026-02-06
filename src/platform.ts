@@ -179,12 +179,12 @@ export class ShellyEnergyMeterPlatform implements DynamicPlatformPlugin {
       
       // Triphase + return enabled
       if (device.enable_triphase_return === true) {
-        accessories.push({ suffix: '-return', name: `${device.name} Return` });
+        accessories.push({ suffix: '-return', name: `${device.name}-Return` });
       }
     } else if (device.monophase === true) {
       // Monophase: three accessories for A, B, C
       for (const phase of ['A', 'B', 'C']) {
-        accessories.push({ suffix: `-phase${phase}`, name: `${device.name} Phase ${phase}` });
+        accessories.push({ suffix: `-phase${phase}`, name: `${device.name}-Phase-${phase}` });
       }
     }
     
