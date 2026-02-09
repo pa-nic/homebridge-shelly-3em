@@ -6,6 +6,8 @@
 
 # Homebridge Platform Plugin for Shelly (Pro) 3EM energy meters
 
+[![verified-by-homebridge](https://img.shields.io/badge/homebridge-verified-blueviolet?color=%23491F59&style=flat)](https://github.com/homebridge/homebridge/wiki/Verified-Plugins)
+
 This is a [Homebridge](https://homebridge.io) platform plugin for the [Shelly](https://www.shelly.com) three-phase energy meters. 
 
 Supporting all Shelly Gen 2+ **3EM** energy meters like:
