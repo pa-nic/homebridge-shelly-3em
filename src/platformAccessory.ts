@@ -151,8 +151,12 @@ export class ShellyEnergyMeterPlatformAccessory {
 
     this.service.getCharacteristic(this.EvePowerConsumption).onGet(() => this.act_power);
     this.service.getCharacteristic(this.EveTotalConsumption).onGet(() => this.energy);
-    this.service.getCharacteristic(this.EveAmpere).onGet(() => this.current);
-    this.service.getCharacteristic(this.EveVoltage).onGet(() => this.voltage);
+    if (this.deviceConfig.display_current_values && this.suffix !== '-return') {
+      this.service.getCharacteristic(this.EveAmpere).onGet(() => this.current);
+    }
+    if (this.deviceConfig.display_voltage_values && this.suffix !== '-return') {
+      this.service.getCharacteristic(this.EveVoltage).onGet(() => this.voltage);
+    }
 
     this.historyService = new this.platform.FakeGatoHistoryService(
       'energy',
@@ -221,17 +225,23 @@ export class ShellyEnergyMeterPlatformAccessory {
 
       if (phaseMap[this.suffix]) {
         const phase = phaseMap[this.suffix];
-        this.current = phase.current ?? 0;
-        this.voltage = phase.voltage ?? 0;
+        if (this.deviceConfig.display_current_values) {
+          this.current = phase.current ?? 0;
+        }
+        if (this.deviceConfig.display_voltage_values) {
+          this.voltage = phase.voltage ?? 0;
+        }
         this.act_power = phase.power && phase.power > 0 ? phase.power : 0;
       } else if (this.suffix === '-return') {
-        this.current = 0;
-        this.voltage = 0;
         this.act_power = data.total_act_power && data.total_act_power < 0 ? Math.abs(data.total_act_power) : 0;
       } else {
         // Main triphase accessory (suffix === '')
-        this.current = data.total_current ?? 0;
-        this.voltage = this.calculateAverageVoltage(data);
+        if (this.deviceConfig.display_current_values) {
+          this.current = data.total_current ?? 0;
+        }
+        if (this.deviceConfig.display_voltage_values) {
+          this.voltage = this.calculateAverageVoltage(data);
+        }
         this.act_power = data.total_act_power && data.total_act_power > 0 ? data.total_act_power : 0;
       }
     } else {
@@ -313,8 +323,12 @@ export class ShellyEnergyMeterPlatformAccessory {
   private updateAllCharacteristics(): void {
     // Update all status characteristics
     this.service.getCharacteristic(this.EvePowerConsumption).updateValue(this.act_power);
-    this.service.getCharacteristic(this.EveAmpere).updateValue(this.current);
-    this.service.getCharacteristic(this.EveVoltage).updateValue(this.voltage);
+    if (this.deviceConfig.display_current_values && this.suffix !== '-return') {
+      this.service.getCharacteristic(this.EveAmpere).updateValue(this.current);
+    }
+    if (this.deviceConfig.display_voltage_values && this.suffix !== '-return') {
+      this.service.getCharacteristic(this.EveVoltage).updateValue(this.voltage);
+    }
     this.service.getCharacteristic(this.EveTotalConsumption).updateValue(this.energy);
 
     // Add history entry

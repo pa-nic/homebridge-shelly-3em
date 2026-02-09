@@ -59,6 +59,16 @@
               "default": 5000,
               "minimum": 1000
             },
+            "display_current_values": {
+              "title": "Display current values",
+              "type": "boolean",
+              "default": true
+            },
+            "display_voltage_values": {
+              "title": "Display voltage values",
+              "type": "boolean",
+              "default": true
+            },
             "enable_triphase_return": {
               "title": "Enable Return Power/Energy monitoring",
               "description": "Adds additional accessory to display return power/energy in triphase mode.",

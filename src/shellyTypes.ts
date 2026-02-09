@@ -15,6 +15,8 @@ export interface DeviceConfig {
   pass?: string;
   update_interval: number;
   timeout: number;
+  display_current_values: boolean;
+  display_voltage_values: boolean;
   enable_triphase_return?: boolean;
   custom_script?: boolean;
   custom_script_id?: number;
