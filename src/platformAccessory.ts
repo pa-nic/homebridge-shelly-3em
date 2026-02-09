@@ -158,14 +158,16 @@ export class ShellyEnergyMeterPlatformAccessory {
       this.service.getCharacteristic(this.EveVoltage).onGet(() => this.voltage);
     }
 
-    this.historyService = new this.platform.FakeGatoHistoryService(
-      'energy',
-      this.accessory,
-      {
-        log: this.platform.log,
-        storage: 'fs',
-      },
-    );
+    if (this.deviceConfig.save_energy_history) {
+      this.historyService = new this.platform.FakeGatoHistoryService(
+        'energy',
+        this.accessory,
+        {
+          log: this.platform.log,
+          storage: 'fs',
+        },
+      );
+    }
   }
 
   private startPolling() {
@@ -332,10 +334,12 @@ export class ShellyEnergyMeterPlatformAccessory {
     this.service.getCharacteristic(this.EveTotalConsumption).updateValue(this.energy);
 
     // Add history entry
-    this.historyService.addEntry({ 
-      time: Math.floor(Date.now() / 1000), 
-      power: this.act_power,
-      totalEnergy: this.energy,
-    });
+    if (this.deviceConfig.save_energy_history) {
+      this.historyService.addEntry({ 
+        time: Math.floor(Date.now() / 1000), 
+        power: this.act_power,
+        totalEnergy: this.energy,
+      });
+    }
   }
 }

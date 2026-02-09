@@ -17,6 +17,7 @@ export interface DeviceConfig {
   timeout: number;
   display_current_values: boolean;
   display_voltage_values: boolean;
+  save_energy_history: boolean;
   enable_triphase_return?: boolean;
   custom_script?: boolean;
   custom_script_id?: number;

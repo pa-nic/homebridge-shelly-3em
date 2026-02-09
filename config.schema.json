@@ -69,6 +69,11 @@
               "type": "boolean",
               "default": true
             },
+            "save_energy_history": {
+              "title": "Save Energy History",
+              "type": "boolean",
+              "default": true
+            },
             "enable_triphase_return": {
               "title": "Enable Return Power/Energy monitoring",
               "description": "Adds additional accessory to display return power/energy in triphase mode.",
