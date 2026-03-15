@@ -67,7 +67,7 @@ Add as many devices as you like.
 
 ## Example Balancing Script
 
-Gist: [Shelly Pro 3EM Energy Counter Script](https://gist.github.com/pa-nic/7e3b0390e06d65aac40039384f2b6754)
+Gist: [Shelly Pro 3EM Energy Counter Script](https://gist.github.com/pa-nic/1a9811369708129084142b11d3e743da)
 
 > [!WARNING]
 > If you use your own script, make sure it returns a JSON with two values in kWh.
